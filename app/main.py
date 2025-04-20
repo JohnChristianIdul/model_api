@@ -26,11 +26,10 @@ logger = logging.getLogger(__name__)
 
 @app.on_event("startup")
 def startup_event():
-    logger.info("Skipping model loading for now")
-    # try:
-    #     load_model()
-    # except Exception as e:
-    #     logger.error(f"Startup failed to load model: {e}")
+    try:
+        load_model()
+    except Exception as e:
+        logger.error(f"Startup failed to load model: {e}")
 
 @app.get("/")
 def root():
