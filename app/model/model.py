@@ -1,15 +1,14 @@
-import io
-
 import torch
 import numpy as np
 import pandas as pd
 import joblib
-from fastapi import requests
-from sklearn.preprocessing import MinMaxScaler
+import requests  # Standalone requests, not from fastapi
+import io
 from torch.utils.data import DataLoader
 from pathlib import Path
 from datetime import datetime, timedelta
 import logging
+import traceback
 
 from app.model.TimeSeriesDataset import TimeSeriesDataset
 from app.model.implementation import TCNForecaster
@@ -37,29 +36,41 @@ scaler = None
 
 
 def load_model():
+    """Load model and scaler directly from GitHub URLs"""
     global model, scaler
 
     try:
         # Load model directly from GitHub URL
         model = TCNForecaster(input_size=34, output_size=1, num_channels=[62, 128, 256])
-        state_dict = torch.hub.load_state_dict_from_url(
-            GITHUB_MODEL_URL,
-            map_location=torch.device("cpu"),
-            progress=True
-        )
+
+        # Get model file from GitHub
+        model_response = requests.get(GITHUB_MODEL_URL)
+        model_response.raise_for_status()
+
+        # Load model state dict from the response content
+        model_buffer = io.BytesIO(model_response.content)
+        state_dict = torch.load(model_buffer, map_location=torch.device("cpu"))
         model.load_state_dict(state_dict)
         model.eval()
 
-        # Load scaler directly from GitHub URL
-        response = requests.get(GITHUB_SCALER_URL)
-        response.raise_for_status()
-        scaler = joblib.load(io.BytesIO(response.content))
+        # Get scaler file from GitHub
+        scaler_response = requests.get(GITHUB_SCALER_URL)
+        scaler_response.raise_for_status()
 
+        # Load scaler from the response content
+        scaler_buffer = io.BytesIO(scaler_response.content)
+        scaler = joblib.load(scaler_buffer)
+
+        logger.info("Model and scaler loaded successfully from GitHub.")
         print("[INFO] Model and scaler loaded successfully from GitHub.")
+        return True
 
     except Exception as e:
+        logger.error(f"Failed to load model or scaler: {e}")
+        logger.error(traceback.format_exc())
         print(f"[ERROR] Failed to load model or scaler: {e}")
-        raise
+        print(traceback.format_exc())
+        return False
 
 
 def preprocess_data(df):
@@ -153,13 +164,15 @@ def add_feature_engineering(df, scaler):
 def predict_pipeline(df):
     """Complete prediction pipeline"""
     global model, scaler
+
+    # Check if model and scaler are loaded, if not, try to load them
     if model is None or scaler is None:
-        return {"error": "Model or scaler not loaded"}
+        logger.info("Model or scaler not loaded, attempting to load now")
+        success = load_model()
+        if not success:
+            return {"error": "Model or scaler could not be loaded"}
 
     try:
-        # Load model and scaler
-        scaler = load_model()
-
         # Preprocess data
         df_processed = preprocess_data(df)
 
@@ -219,18 +232,41 @@ def predict_pipeline(df):
 
         return {
             "datetime": future_datetime.strftime('%Y-%m-%d %H:%M:%S'),
-            "wl-c_predicted": float(latest_prediction) if latest_prediction is not None else None,
-            "raw_predictions": [float(p) for p in all_predictions]
+            "wl-c_predicted": round(float(latest_prediction), 4) if latest_prediction is not None else None,
         }
 
     except Exception as e:
-        import traceback
         logger.error(f"Error in prediction pipeline: {str(e)}\n{traceback.format_exc()}")
         return {"error": str(e), "traceback": traceback.format_exc()}
 
 
+# Additional setup for FastAPI if using it
+try:
+    from fastapi import FastAPI
+
+    app = FastAPI()
+
+
+    @app.on_event("startup")
+    async def startup_event():
+        """Load the model when the FastAPI app starts"""
+        logger.info("Loading model during FastAPI startup")
+        success = load_model()
+        if success:
+            logger.info("Model successfully loaded during startup")
+        else:
+            logger.error("Failed to load model during startup")
+except ImportError:
+    # If not using FastAPI, just log that we're loading the model
+    logger.info("Not using FastAPI, loading model on module import")
+
 # Load model on module import
 try:
-    _ = load_model()
+    success = load_model()
+    if success:
+        logger.info("Model and scaler loaded successfully on module import")
+    else:
+        logger.error("Failed to load model during module initialization")
 except Exception as e:
     logger.error(f"Failed to load model during module initialization: {e}")
+    logger.error(traceback.format_exc())
