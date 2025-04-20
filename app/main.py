@@ -4,7 +4,7 @@ import logging
 import io
 import traceback
 
-from app.model.model import predict_pipeline
+from app.model.model import load_model, predict_pipeline
 
 app = FastAPI(
     title="Water Level Prediction API",
@@ -24,35 +24,24 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+@app.on_event("startup")
+def startup_event():
+    load_model()
+
+
 @app.get("/")
-async def root():
-    """Root endpoint to check if API is running"""
+def root():
     return {"message": "Water Level Prediction API is running"}
 
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
-    """
-    Predict water levels based on uploaded Excel data
-
-    The Excel file should contain the following columns:
-    - Datetime: Date and time of readings
-    - rf-a: Rainfall at station A
-    - rf-a-sum: Cumulative rainfall at station A
-    - wl-ch-a: Water level change at station A
-    - wl-a: Water level at station A
-    - rf-c: Rainfall at station C
-    - rf-c-sum: Cumulative rainfall at station C
-    """
     try:
-        # Check file extension
         if not file.filename.endswith(('.xlsx', '.xls', '.csv')):
             raise HTTPException(status_code=400, detail="Only Excel and CSV files are supported")
 
-        # Read file content
         content = await file.read()
 
-        # Process based on file type
         try:
             if file.filename.endswith('.csv'):
                 df = pd.read_csv(io.BytesIO(content))
@@ -62,24 +51,11 @@ async def predict(file: UploadFile = File(...)):
             logger.error(f"File parsing error: {e}")
             raise HTTPException(status_code=400, detail=f"Error parsing file: {str(e)}")
 
-        # Log the DataFrame info
-        logger.debug(f"Uploaded DataFrame shape: {df.shape}")
-        logger.debug(f"DataFrame columns: {df.columns.tolist()}")
+        if 'Datetime' not in df.columns:
+            raise HTTPException(status_code=400, detail="Missing required column: Datetime")
 
-        # Validate required columns
-        required_cols = ['Datetime']
-        missing_cols = [col for col in required_cols if col not in df.columns]
-
-        if missing_cols:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Missing required columns: {', '.join(missing_cols)}"
-            )
-
-        # Run through prediction pipeline
         result = predict_pipeline(df)
 
-        # Check for errors in the prediction result
         if "error" in result:
             logger.error(f"Prediction error: {result['error']}")
             raise HTTPException(status_code=500, detail=result["error"])

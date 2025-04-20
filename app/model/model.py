@@ -25,18 +25,22 @@ SHIFT_12 = ['wl-c', 'rf-c', 'rf-c-sum']
 UP_ONE = ["wl-ch-a", "wl-a"]
 SEQUENCE_LENGTH = 6
 
-# Initialize model with correct input size
-model = TCNForecaster(input_size=34, output_size=1, num_channels=[62, 128, 256])
+model = None
+scaler = None
 
 
 def load_model():
-    """Load the trained model and scaler"""
-    global model
+    """Load the trained model and scaler into memory once at startup"""
+    global model, scaler
+    model_path = BASE_DIR / "models/1.2/wl_c_model_ver_1.2_6_baseinput.pth"
+    scaler_path = BASE_DIR / "models/1.2/scalers_c_ver_1.2_6_baseinput.joblib"
+
     try:
+        model = TCNForecaster(input_size=34, output_size=1, num_channels=[62, 128, 256])
         model.load_state_dict(torch.load(str(model_path), map_location=torch.device('cpu')))
         model.eval()
-        logger.info("Model loaded successfully")
-        return joblib.load(scaler_path)
+        scaler = joblib.load(scaler_path)
+        logger.info("Model and scaler loaded successfully")
     except Exception as e:
         logger.error(f"Error loading model: {e}")
         raise
@@ -132,6 +136,10 @@ def add_feature_engineering(df, scaler):
 
 def predict_pipeline(df):
     """Complete prediction pipeline"""
+    global model, scaler
+    if model is None or scaler is None:
+        return {"error": "Model or scaler not loaded"}
+
     try:
         # Load model and scaler
         scaler = load_model()
