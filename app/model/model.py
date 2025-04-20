@@ -28,8 +28,8 @@ UP_ONE = ["wl-ch-a", "wl-a"]
 SEQUENCE_LENGTH = 6
 
 # Raw GitHub URLs to your model + scaler
-GITHUB_MODEL_URL = "https://raw.githubusercontent.com/JohnChristianIdul/model_api/main/app/model/models/1.2/wl_c_model_ver_1.2_6_baseinput.pth"
-GITHUB_SCALER_URL = "https://raw.githubusercontent.com/JohnChristianIdul/model_api/main/app/model/models/1.2/scalers_c_ver_1.2_6_baseinput.joblib"
+GITHUB_MODEL_URL = "https://raw.githubusercontent.com/JohnChristianIdul/model_api/master/app/model/models/1.2/wl_c_model_ver_1.2_6_baseinput.pth"
+GITHUB_SCALER_URL = "https://raw.githubusercontent.com/JohnChristianIdul/model_api/master/app/model/models/1.2/scalers_c_ver_1.2_6_baseinput.pth"
 
 model = None
 scaler = None
