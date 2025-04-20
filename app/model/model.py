@@ -28,8 +28,8 @@ UP_ONE = ["wl-ch-a", "wl-a"]
 SEQUENCE_LENGTH = 6
 
 # Raw GitHub URLs to your model + scaler
-GITHUB_MODEL_URL = "https://raw.githubusercontent.com/JohnChristianIdul/model_api/master/app/model/models/1.2/wl_c_model_ver_1.2_6_baseinput.pth"
-GITHUB_SCALER_URL = "https://raw.githubusercontent.com/JohnChristianIdul/model_api/master/app/model/models/1.2/scalers_c_ver_1.2_6_baseinput.pth"
+MODEL_URL = "https://drive.google.com/uc?export=download&id=1c3nhTQl4TlsuikHDyj1NUocRdwvGqMz6"
+SCALER_URL = "https://drive.google.com/uc?export=download&id=1pL-GiUvc2pFBHqddrTgURqpuXAuPJvE4"
 
 model = None
 scaler = None
@@ -44,7 +44,7 @@ def load_model():
         model = TCNForecaster(input_size=34, output_size=1, num_channels=[62, 128, 256])
 
         # Get model file from GitHub
-        model_response = requests.get(GITHUB_MODEL_URL)
+        model_response = requests.get(MODEL_URL)
         model_response.raise_for_status()
 
         # Load model state dict from the response content
@@ -54,7 +54,7 @@ def load_model():
         model.eval()
 
         # Get scaler file from GitHub
-        scaler_response = requests.get(GITHUB_SCALER_URL)
+        scaler_response = requests.get(SCALER_URL)
         scaler_response.raise_for_status()
 
         # Load scaler from the response content
