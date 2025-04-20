@@ -2,6 +2,7 @@ import torch
 import numpy as np
 import pandas as pd
 import joblib
+from fastapi import requests
 from sklearn.preprocessing import MinMaxScaler
 from torch.utils.data import DataLoader
 from pathlib import Path
@@ -13,9 +14,9 @@ from app.model.implementation import TCNForecaster
 
 logger = logging.getLogger(__name__)
 
-# BASE_DIR = Path(__file__).resolve().parent
-# model_path = BASE_DIR / "models/1.2/wl_c_model_ver_1.2_6_baseinput.pth"
-# scaler_path = BASE_DIR / "models/1.2/scalers_c_ver_1.2_6_baseinput.joblib"
+BASE_DIR = Path(__file__).resolve().parent
+model_path = BASE_DIR / "models/1.2/wl_c_model_ver_1.2_6_baseinput.pth"
+scaler_path = BASE_DIR / "models/1.2/scalers_c_ver_1.2_6_baseinput.joblib"
 
 # Base features that were used during training
 BASE_FEATURES = ["rf-a", "rf-a-sum", "wl-ch-a", "wl-a", "rf-c", "rf-c-sum"]
@@ -25,24 +26,47 @@ SHIFT_12 = ['wl-c', 'rf-c', 'rf-c-sum']
 UP_ONE = ["wl-ch-a", "wl-a"]
 SEQUENCE_LENGTH = 6
 
+# Raw GitHub URLs to your model + scaler
+GITHUB_MODEL_URL = "https://raw.githubusercontent.com/JohnChristianIdul/model_api/main/app/model/models/1.2/wl_c_model_ver_1.2_6_baseinput.pth"
+GITHUB_SCALER_URL = "https://raw.githubusercontent.com/JohnChristianIdul/model_api/main/app/model/models/1.2/scalers_c_ver_1.2_6_baseinput.joblib"
+
 model = None
 scaler = None
 
 
+def download_file(url: str, destination: Path):
+    try:
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        response = requests.get(url)
+        response.raise_for_status()
+        with open(destination, 'wb') as f:
+            f.write(response.content)
+        print(f"[INFO] Downloaded: {url}")
+    except Exception as e:
+        print(f"[ERROR] Failed to download {url}: {e}")
+        raise
+
+
 def load_model():
-    """Load the trained model and scaler into memory once at startup"""
     global model, scaler
-    model_path = "app/model/models/1.2/wl_c_model_ver_1.2_6_baseinput.pth"
-    scaler_path = "app/model/models/1.2/scalers_c_ver_1.2_6_baseinput.joblib"
 
     try:
+        # Download model and scaler from GitHub
+        download_file(GITHUB_MODEL_URL, model_path)
+        download_file(GITHUB_SCALER_URL, scaler_path)
+
+        # Load model
         model = TCNForecaster(input_size=34, output_size=1, num_channels=[62, 128, 256])
-        model.load_state_dict(torch.load(str(model_path), map_location=torch.device('cpu')))
+        model.load_state_dict(torch.load(str(model_path), map_location=torch.device("cpu")))
         model.eval()
+
+        # Load scaler
         scaler = joblib.load(scaler_path)
-        logger.info("Model and scaler loaded successfully")
+
+        print("[INFO] Model and scaler loaded successfully from GitHub.")
+
     except Exception as e:
-        logger.error(f"Error loading model: {e}")
+        print(f"[ERROR] Failed to load model or scaler: {e}")
         raise
 
 
