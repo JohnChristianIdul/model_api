@@ -1,3 +1,5 @@
+import io
+
 import torch
 import numpy as np
 import pandas as pd
@@ -34,34 +36,24 @@ model = None
 scaler = None
 
 
-def download_file(url: str, destination: Path):
-    try:
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        response = requests.get(url)
-        response.raise_for_status()
-        with open(destination, 'wb') as f:
-            f.write(response.content)
-        print(f"[INFO] Downloaded: {url}")
-    except Exception as e:
-        print(f"[ERROR] Failed to download {url}: {e}")
-        raise
-
-
 def load_model():
     global model, scaler
 
     try:
-        # Download model and scaler from GitHub
-        download_file(GITHUB_MODEL_URL, model_path)
-        download_file(GITHUB_SCALER_URL, scaler_path)
-
-        # Load model
+        # Load model directly from GitHub URL
         model = TCNForecaster(input_size=34, output_size=1, num_channels=[62, 128, 256])
-        model.load_state_dict(torch.load(str(model_path), map_location=torch.device("cpu")))
+        state_dict = torch.hub.load_state_dict_from_url(
+            GITHUB_MODEL_URL,
+            map_location=torch.device("cpu"),
+            progress=True
+        )
+        model.load_state_dict(state_dict)
         model.eval()
 
-        # Load scaler
-        scaler = joblib.load(scaler_path)
+        # Load scaler directly from GitHub URL
+        response = requests.get(GITHUB_SCALER_URL)
+        response.raise_for_status()
+        scaler = joblib.load(io.BytesIO(response.content))
 
         print("[INFO] Model and scaler loaded successfully from GitHub.")
 
