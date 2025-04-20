@@ -32,8 +32,8 @@ scaler = None
 def load_model():
     """Load the trained model and scaler into memory once at startup"""
     global model, scaler
-    model_path = BASE_DIR / "models/1.2/wl_c_model_ver_1.2_6_baseinput.pth"
-    scaler_path = BASE_DIR / "models/1.2/scalers_c_ver_1.2_6_baseinput.joblib"
+    model_path = BASE_DIR / "https://github.com/JohnChristianIdul/model_api/blob/ee5c8ecb55ca5807b0bc05bb3334ba09d1d8f4ff/app/model/models/1.2/wl_c_model_ver_1.2_6_baseinput.pth"
+    scaler_path = BASE_DIR / "https://github.com/JohnChristianIdul/model_api/blob/ee5c8ecb55ca5807b0bc05bb3334ba09d1d8f4ff/app/model/models/1.2/scalers_c_ver_1.2_6_baseinput.joblib"
 
     try:
         model = TCNForecaster(input_size=34, output_size=1, num_channels=[62, 128, 256])
