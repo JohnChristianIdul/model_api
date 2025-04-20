@@ -36,7 +36,7 @@ scaler = None
 
 
 def load_model():
-    """Load model and scaler directly from GitHub URLs"""
+    """Load model and scaler directly from drive URLs"""
     global model, scaler
 
     try:
