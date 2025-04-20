@@ -1,0 +1,269 @@
+2025-04-20 03:15:58,652 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-04-20 03:15:58,652 - python_multipart.multipart - DEBUG - Calling on_header_field with data[54:73]
+2025-04-20 03:15:58,652 - python_multipart.multipart - DEBUG - Calling on_header_value with data[75:137]
+2025-04-20 03:15:58,652 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:15:58,652 - python_multipart.multipart - DEBUG - Calling on_header_field with data[139:151]
+2025-04-20 03:15:58,652 - python_multipart.multipart - DEBUG - Calling on_header_value with data[153:218]
+2025-04-20 03:15:58,652 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:15:58,652 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-04-20 03:15:58,655 - python_multipart.multipart - DEBUG - Calling on_part_data with data[222:15747]
+2025-04-20 03:15:58,655 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-04-20 03:15:58,655 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-04-20 03:15:59,064 - app.main - DEBUG - Uploaded DataFrame shape: (144, 8)
+2025-04-20 03:15:59,064 - app.main - DEBUG - DataFrame columns: ['Datetime', 'rf-a', 'rf-a-sum', 'wl-ch-a', 'wl-a', 'rf-c', 'rf-c-sum', 'wl-c']
+2025-04-20 03:15:59,074 - app.model.model - ERROR - Error loading model: Error(s) in loading state_dict for TCNForecaster:
+	size mismatch for tcn.layers.0.conv1.weight: copying a param with shape torch.Size([62, 34, 3]) from checkpoint, the shape in current model is torch.Size([62, 6, 3]).
+	size mismatch for tcn.layers.0.downsample.weight: copying a param with shape torch.Size([62, 34, 1]) from checkpoint, the shape in current model is torch.Size([62, 6, 1]).
+2025-04-20 03:15:59,082 - app.model.model - ERROR - Error in prediction pipeline: Error(s) in loading state_dict for TCNForecaster:
+	size mismatch for tcn.layers.0.conv1.weight: copying a param with shape torch.Size([62, 34, 3]) from checkpoint, the shape in current model is torch.Size([62, 6, 3]).
+	size mismatch for tcn.layers.0.downsample.weight: copying a param with shape torch.Size([62, 34, 1]) from checkpoint, the shape in current model is torch.Size([62, 6, 1]).
+Traceback (most recent call last):
+  File "E:\Idul, John Christian Personal\Dev\MTCN_API\app\model\model.py", line 100, in predict_pipeline
+    scaler = load_model()
+             ^^^^^^^^^^^^
+  File "E:\Idul, John Christian Personal\Dev\MTCN_API\app\model\model.py", line 36, in load_model
+    model.load_state_dict(torch.load(str(model_path), map_location=torch.device('cpu')))
+  File "E:\Idul, John Christian Personal\Dev\MTCN_API\.venv\Lib\site-packages\torch\nn\modules\module.py", line 2581, in load_state_dict
+    raise RuntimeError(
+RuntimeError: Error(s) in loading state_dict for TCNForecaster:
+	size mismatch for tcn.layers.0.conv1.weight: copying a param with shape torch.Size([62, 34, 3]) from checkpoint, the shape in current model is torch.Size([62, 6, 3]).
+	size mismatch for tcn.layers.0.downsample.weight: copying a param with shape torch.Size([62, 34, 1]) from checkpoint, the shape in current model is torch.Size([62, 6, 1]).
+
+2025-04-20 03:15:59,083 - app.main - ERROR - Prediction error: Error(s) in loading state_dict for TCNForecaster:
+	size mismatch for tcn.layers.0.conv1.weight: copying a param with shape torch.Size([62, 34, 3]) from checkpoint, the shape in current model is torch.Size([62, 6, 3]).
+	size mismatch for tcn.layers.0.downsample.weight: copying a param with shape torch.Size([62, 34, 1]) from checkpoint, the shape in current model is torch.Size([62, 6, 1]).
+2025-04-20 03:17:25,934 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-04-20 03:17:25,934 - python_multipart.multipart - DEBUG - Calling on_header_field with data[54:73]
+2025-04-20 03:17:25,934 - python_multipart.multipart - DEBUG - Calling on_header_value with data[75:137]
+2025-04-20 03:17:25,934 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:17:25,934 - python_multipart.multipart - DEBUG - Calling on_header_field with data[139:151]
+2025-04-20 03:17:25,934 - python_multipart.multipart - DEBUG - Calling on_header_value with data[153:218]
+2025-04-20 03:17:25,934 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:17:25,934 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-04-20 03:17:25,935 - python_multipart.multipart - DEBUG - Calling on_part_data with data[222:15747]
+2025-04-20 03:17:25,935 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-04-20 03:17:25,935 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-04-20 03:17:26,325 - app.main - DEBUG - Uploaded DataFrame shape: (144, 8)
+2025-04-20 03:17:26,325 - app.main - DEBUG - DataFrame columns: ['Datetime', 'rf-a', 'rf-a-sum', 'wl-ch-a', 'wl-a', 'rf-c', 'rf-c-sum', 'wl-c']
+2025-04-20 03:17:26,333 - app.model.model - INFO - Model loaded successfully
+2025-04-20 03:17:26,335 - app.model.model - DEBUG - Initial DataFrame shape: (144, 8)
+2025-04-20 03:17:26,359 - app.model.model - DEBUG - DataFrame after preprocessing: (144, 12)
+2025-04-20 03:17:26,378 - app.model.model - DEBUG - Final features shape: (144, 34)
+2025-04-20 03:17:26,487 - app.model.model - ERROR - Error in prediction pipeline: unsupported operand type(s) for +: 'int' and 'datetime.timedelta'
+Traceback (most recent call last):
+  File "E:\Idul, John Christian Personal\Dev\MTCN_API\app\model\model.py", line 167, in predict_pipeline
+    future_datetime = last_datetime + timedelta(hours=2)
+                      ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for +: 'int' and 'datetime.timedelta'
+
+2025-04-20 03:17:26,489 - app.main - ERROR - Prediction error: unsupported operand type(s) for +: 'int' and 'datetime.timedelta'
+2025-04-20 03:19:53,341 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-04-20 03:19:53,341 - python_multipart.multipart - DEBUG - Calling on_header_field with data[54:73]
+2025-04-20 03:19:53,341 - python_multipart.multipart - DEBUG - Calling on_header_value with data[75:137]
+2025-04-20 03:19:53,341 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:19:53,341 - python_multipart.multipart - DEBUG - Calling on_header_field with data[139:151]
+2025-04-20 03:19:53,341 - python_multipart.multipart - DEBUG - Calling on_header_value with data[153:218]
+2025-04-20 03:19:53,341 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:19:53,341 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-04-20 03:19:53,344 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:15525]
+2025-04-20 03:19:53,344 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-04-20 03:19:53,344 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-04-20 03:19:53,779 - app.main - DEBUG - Uploaded DataFrame shape: (144, 8)
+2025-04-20 03:19:53,779 - app.main - DEBUG - DataFrame columns: ['Datetime', 'rf-a', 'rf-a-sum', 'wl-ch-a', 'wl-a', 'rf-c', 'rf-c-sum', 'wl-c']
+2025-04-20 03:19:53,786 - app.model.model - INFO - Model loaded successfully
+2025-04-20 03:19:53,788 - app.model.model - DEBUG - Initial DataFrame shape: (144, 8)
+2025-04-20 03:19:53,805 - app.model.model - DEBUG - DataFrame after preprocessing: (144, 12)
+2025-04-20 03:19:53,830 - app.model.model - DEBUG - Final features shape: (144, 34)
+2025-04-20 03:19:53,831 - app.model.model - WARNING - last_datetime is not a datetime object, it's <class 'numpy.int64'>
+2025-04-20 03:20:26,489 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-04-20 03:20:26,489 - python_multipart.multipart - DEBUG - Calling on_header_field with data[54:73]
+2025-04-20 03:20:26,489 - python_multipart.multipart - DEBUG - Calling on_header_value with data[75:137]
+2025-04-20 03:20:26,489 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:20:26,489 - python_multipart.multipart - DEBUG - Calling on_header_field with data[139:151]
+2025-04-20 03:20:26,489 - python_multipart.multipart - DEBUG - Calling on_header_value with data[153:218]
+2025-04-20 03:20:26,489 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:20:26,489 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-04-20 03:20:26,490 - python_multipart.multipart - DEBUG - Calling on_part_data with data[222:15747]
+2025-04-20 03:20:26,490 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-04-20 03:20:26,490 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-04-20 03:20:26,836 - app.main - DEBUG - Uploaded DataFrame shape: (144, 8)
+2025-04-20 03:20:26,836 - app.main - DEBUG - DataFrame columns: ['Datetime', 'rf-a', 'rf-a-sum', 'wl-ch-a', 'wl-a', 'rf-c', 'rf-c-sum', 'wl-c']
+2025-04-20 03:20:26,843 - app.model.model - INFO - Model loaded successfully
+2025-04-20 03:20:26,845 - app.model.model - DEBUG - Initial DataFrame shape: (144, 8)
+2025-04-20 03:20:26,861 - app.model.model - DEBUG - DataFrame after preprocessing: (144, 12)
+2025-04-20 03:20:26,883 - app.model.model - DEBUG - Final features shape: (144, 34)
+2025-04-20 03:20:26,883 - app.model.model - WARNING - last_datetime is not a datetime object, it's <class 'numpy.int64'>
+2025-04-20 03:20:41,352 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-04-20 03:20:41,352 - python_multipart.multipart - DEBUG - Calling on_header_field with data[54:73]
+2025-04-20 03:20:41,352 - python_multipart.multipart - DEBUG - Calling on_header_value with data[75:137]
+2025-04-20 03:20:41,352 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:20:41,352 - python_multipart.multipart - DEBUG - Calling on_header_field with data[139:151]
+2025-04-20 03:20:41,352 - python_multipart.multipart - DEBUG - Calling on_header_value with data[153:218]
+2025-04-20 03:20:41,352 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:20:41,352 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-04-20 03:20:41,352 - python_multipart.multipart - DEBUG - Calling on_part_data with data[222:15747]
+2025-04-20 03:20:41,353 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-04-20 03:20:41,353 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-04-20 03:20:41,374 - app.main - DEBUG - Uploaded DataFrame shape: (144, 8)
+2025-04-20 03:20:41,374 - app.main - DEBUG - DataFrame columns: ['Datetime', 'rf-a', 'rf-a-sum', 'wl-ch-a', 'wl-a', 'rf-c', 'rf-c-sum', 'wl-c']
+2025-04-20 03:20:41,378 - app.model.model - INFO - Model loaded successfully
+2025-04-20 03:20:41,378 - app.model.model - DEBUG - Initial DataFrame shape: (144, 8)
+2025-04-20 03:20:41,384 - app.model.model - DEBUG - DataFrame after preprocessing: (144, 12)
+2025-04-20 03:20:41,391 - app.model.model - DEBUG - Final features shape: (144, 34)
+2025-04-20 03:20:41,391 - app.model.model - WARNING - last_datetime is not a datetime object, it's <class 'numpy.int64'>
+2025-04-20 03:20:51,073 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-04-20 03:20:51,073 - python_multipart.multipart - DEBUG - Calling on_header_field with data[54:73]
+2025-04-20 03:20:51,073 - python_multipart.multipart - DEBUG - Calling on_header_value with data[75:137]
+2025-04-20 03:20:51,073 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:20:51,073 - python_multipart.multipart - DEBUG - Calling on_header_field with data[139:151]
+2025-04-20 03:20:51,073 - python_multipart.multipart - DEBUG - Calling on_header_value with data[153:218]
+2025-04-20 03:20:51,073 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:20:51,073 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-04-20 03:20:51,074 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:15525]
+2025-04-20 03:20:51,074 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-04-20 03:20:51,074 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-04-20 03:20:51,090 - app.main - DEBUG - Uploaded DataFrame shape: (144, 8)
+2025-04-20 03:20:51,090 - app.main - DEBUG - DataFrame columns: ['Datetime', 'rf-a', 'rf-a-sum', 'wl-ch-a', 'wl-a', 'rf-c', 'rf-c-sum', 'wl-c']
+2025-04-20 03:20:51,095 - app.model.model - INFO - Model loaded successfully
+2025-04-20 03:20:51,096 - app.model.model - DEBUG - Initial DataFrame shape: (144, 8)
+2025-04-20 03:20:51,101 - app.model.model - DEBUG - DataFrame after preprocessing: (144, 12)
+2025-04-20 03:20:51,115 - app.model.model - DEBUG - Final features shape: (144, 34)
+2025-04-20 03:20:51,115 - app.model.model - WARNING - last_datetime is not a datetime object, it's <class 'numpy.int64'>
+2025-04-20 03:20:59,964 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-04-20 03:20:59,965 - python_multipart.multipart - DEBUG - Calling on_header_field with data[54:73]
+2025-04-20 03:20:59,965 - python_multipart.multipart - DEBUG - Calling on_header_value with data[75:137]
+2025-04-20 03:20:59,965 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:20:59,965 - python_multipart.multipart - DEBUG - Calling on_header_field with data[139:151]
+2025-04-20 03:20:59,965 - python_multipart.multipart - DEBUG - Calling on_header_value with data[153:218]
+2025-04-20 03:20:59,965 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:20:59,965 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-04-20 03:20:59,965 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:15525]
+2025-04-20 03:20:59,965 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-04-20 03:20:59,965 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-04-20 03:20:59,980 - app.main - DEBUG - Uploaded DataFrame shape: (144, 8)
+2025-04-20 03:20:59,980 - app.main - DEBUG - DataFrame columns: ['Datetime', 'rf-a', 'rf-a-sum', 'wl-ch-a', 'wl-a', 'rf-c', 'rf-c-sum', 'wl-c']
+2025-04-20 03:20:59,984 - app.model.model - INFO - Model loaded successfully
+2025-04-20 03:20:59,984 - app.model.model - DEBUG - Initial DataFrame shape: (144, 8)
+2025-04-20 03:20:59,989 - app.model.model - DEBUG - DataFrame after preprocessing: (144, 12)
+2025-04-20 03:20:59,996 - app.model.model - DEBUG - Final features shape: (144, 34)
+2025-04-20 03:20:59,997 - app.model.model - WARNING - last_datetime is not a datetime object, it's <class 'numpy.int64'>
+2025-04-20 03:23:54,334 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-04-20 03:23:54,334 - python_multipart.multipart - DEBUG - Calling on_header_field with data[54:73]
+2025-04-20 03:23:54,334 - python_multipart.multipart - DEBUG - Calling on_header_value with data[75:110]
+2025-04-20 03:23:54,334 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:23:54,334 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-04-20 03:23:54,335 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-04-20 03:23:54,335 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-04-20 03:24:02,720 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-04-20 03:24:02,720 - python_multipart.multipart - DEBUG - Calling on_header_field with data[54:73]
+2025-04-20 03:24:02,720 - python_multipart.multipart - DEBUG - Calling on_header_value with data[75:137]
+2025-04-20 03:24:02,720 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:24:02,720 - python_multipart.multipart - DEBUG - Calling on_header_field with data[139:151]
+2025-04-20 03:24:02,720 - python_multipart.multipart - DEBUG - Calling on_header_value with data[153:218]
+2025-04-20 03:24:02,720 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:24:02,720 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-04-20 03:24:02,720 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:15525]
+2025-04-20 03:24:02,720 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-04-20 03:24:02,721 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-04-20 03:24:03,096 - app.main - DEBUG - Uploaded DataFrame shape: (144, 8)
+2025-04-20 03:24:03,096 - app.main - DEBUG - DataFrame columns: ['Datetime', 'rf-a', 'rf-a-sum', 'wl-ch-a', 'wl-a', 'rf-c', 'rf-c-sum', 'wl-c']
+2025-04-20 03:24:03,104 - app.model.model - INFO - Model loaded successfully
+2025-04-20 03:24:03,106 - app.model.model - DEBUG - Initial DataFrame shape: (144, 8)
+2025-04-20 03:24:03,121 - app.model.model - DEBUG - DataFrame after preprocessing: (144, 12)
+2025-04-20 03:24:03,145 - app.model.model - DEBUG - Final features shape: (144, 34)
+2025-04-20 03:24:03,146 - app.model.model - WARNING - last_datetime is not a datetime object, it's <class 'numpy.int64'>
+2025-04-20 03:29:35,558 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-04-20 03:29:35,559 - python_multipart.multipart - DEBUG - Calling on_header_field with data[54:73]
+2025-04-20 03:29:35,559 - python_multipart.multipart - DEBUG - Calling on_header_value with data[75:137]
+2025-04-20 03:29:35,559 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:29:35,559 - python_multipart.multipart - DEBUG - Calling on_header_field with data[139:151]
+2025-04-20 03:29:35,559 - python_multipart.multipart - DEBUG - Calling on_header_value with data[153:218]
+2025-04-20 03:29:35,559 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:29:35,559 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-04-20 03:29:35,559 - python_multipart.multipart - DEBUG - Calling on_part_data with data[222:15747]
+2025-04-20 03:29:35,559 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-04-20 03:29:35,559 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-04-20 03:29:35,914 - app.main - DEBUG - Uploaded DataFrame shape: (144, 8)
+2025-04-20 03:29:35,914 - app.main - DEBUG - DataFrame columns: ['Datetime', 'rf-a', 'rf-a-sum', 'wl-ch-a', 'wl-a', 'rf-c', 'rf-c-sum', 'wl-c']
+2025-04-20 03:29:35,924 - app.model.model - INFO - Model loaded successfully
+2025-04-20 03:29:35,926 - app.model.model - DEBUG - Initial DataFrame shape: (144, 8)
+2025-04-20 03:29:35,947 - app.model.model - DEBUG - DataFrame after preprocessing: (144, 12)
+2025-04-20 03:29:35,975 - app.model.model - DEBUG - Final features shape: (144, 34)
+2025-04-20 03:29:35,975 - app.model.model - WARNING - last_datetime is not a datetime object, it's <class 'numpy.int64'>
+2025-04-20 03:29:36,106 - app.model.model - WARNING - Using scaled prediction values without inverse transformation
+2025-04-20 03:29:59,583 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-04-20 03:29:59,584 - python_multipart.multipart - DEBUG - Calling on_header_field with data[54:73]
+2025-04-20 03:29:59,584 - python_multipart.multipart - DEBUG - Calling on_header_value with data[75:137]
+2025-04-20 03:29:59,584 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:29:59,584 - python_multipart.multipart - DEBUG - Calling on_header_field with data[139:151]
+2025-04-20 03:29:59,584 - python_multipart.multipart - DEBUG - Calling on_header_value with data[153:218]
+2025-04-20 03:29:59,584 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:29:59,584 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-04-20 03:29:59,584 - python_multipart.multipart - DEBUG - Calling on_part_data with data[222:15747]
+2025-04-20 03:29:59,584 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-04-20 03:29:59,584 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-04-20 03:29:59,944 - app.main - DEBUG - Uploaded DataFrame shape: (144, 8)
+2025-04-20 03:29:59,944 - app.main - DEBUG - DataFrame columns: ['Datetime', 'rf-a', 'rf-a-sum', 'wl-ch-a', 'wl-a', 'rf-c', 'rf-c-sum', 'wl-c']
+2025-04-20 03:29:59,952 - app.model.model - INFO - Model loaded successfully
+2025-04-20 03:29:59,954 - app.model.model - DEBUG - Initial DataFrame shape: (144, 8)
+2025-04-20 03:29:59,970 - app.model.model - DEBUG - DataFrame after preprocessing: (144, 12)
+2025-04-20 03:29:59,990 - app.model.model - DEBUG - Final features shape: (144, 34)
+2025-04-20 03:29:59,990 - app.model.model - WARNING - last_datetime is not a datetime object, it's <class 'numpy.int64'>
+2025-04-20 03:30:00,112 - app.model.model - WARNING - Using scaled prediction values without inverse transformation
+2025-04-20 03:30:06,461 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-04-20 03:30:06,461 - python_multipart.multipart - DEBUG - Calling on_header_field with data[54:73]
+2025-04-20 03:30:06,461 - python_multipart.multipart - DEBUG - Calling on_header_value with data[75:137]
+2025-04-20 03:30:06,461 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:30:06,461 - python_multipart.multipart - DEBUG - Calling on_header_field with data[139:151]
+2025-04-20 03:30:06,461 - python_multipart.multipart - DEBUG - Calling on_header_value with data[153:218]
+2025-04-20 03:30:06,461 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:30:06,461 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-04-20 03:30:06,461 - python_multipart.multipart - DEBUG - Calling on_part_data with data[222:15747]
+2025-04-20 03:30:06,461 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-04-20 03:30:06,461 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-04-20 03:30:06,476 - app.main - DEBUG - Uploaded DataFrame shape: (144, 8)
+2025-04-20 03:30:06,476 - app.main - DEBUG - DataFrame columns: ['Datetime', 'rf-a', 'rf-a-sum', 'wl-ch-a', 'wl-a', 'rf-c', 'rf-c-sum', 'wl-c']
+2025-04-20 03:30:06,480 - app.model.model - INFO - Model loaded successfully
+2025-04-20 03:30:06,481 - app.model.model - DEBUG - Initial DataFrame shape: (144, 8)
+2025-04-20 03:30:06,485 - app.model.model - DEBUG - DataFrame after preprocessing: (144, 12)
+2025-04-20 03:30:06,493 - app.model.model - DEBUG - Final features shape: (144, 34)
+2025-04-20 03:30:06,493 - app.model.model - WARNING - last_datetime is not a datetime object, it's <class 'numpy.int64'>
+2025-04-20 03:30:06,566 - app.model.model - WARNING - Using scaled prediction values without inverse transformation
+2025-04-20 03:31:17,538 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-04-20 03:31:17,538 - python_multipart.multipart - DEBUG - Calling on_header_field with data[54:73]
+2025-04-20 03:31:17,538 - python_multipart.multipart - DEBUG - Calling on_header_value with data[75:137]
+2025-04-20 03:31:17,538 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:31:17,538 - python_multipart.multipart - DEBUG - Calling on_header_field with data[139:151]
+2025-04-20 03:31:17,538 - python_multipart.multipart - DEBUG - Calling on_header_value with data[153:218]
+2025-04-20 03:31:17,538 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:31:17,538 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-04-20 03:31:17,538 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:15525]
+2025-04-20 03:31:17,539 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-04-20 03:31:17,539 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-04-20 03:31:17,956 - app.main - DEBUG - Uploaded DataFrame shape: (144, 8)
+2025-04-20 03:31:17,956 - app.main - DEBUG - DataFrame columns: ['Datetime', 'rf-a', 'rf-a-sum', 'wl-ch-a', 'wl-a', 'rf-c', 'rf-c-sum', 'wl-c']
+2025-04-20 03:31:17,967 - app.model.model - INFO - Model loaded successfully
+2025-04-20 03:31:17,969 - app.model.model - DEBUG - Initial DataFrame shape: (144, 8)
+2025-04-20 03:31:17,990 - app.model.model - DEBUG - DataFrame after preprocessing: (144, 12)
+2025-04-20 03:31:18,016 - app.model.model - DEBUG - Final features shape: (144, 34)
+2025-04-20 03:31:18,016 - app.model.model - WARNING - last_datetime is not a datetime object, it's <class 'numpy.int64'>
+2025-04-20 03:31:18,149 - app.model.model - INFO - Applied scaling factor of 36.0. Original: 90.13484954833984, Scaled: 2.5037457942962646
+2025-04-20 03:31:38,261 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-04-20 03:31:38,261 - python_multipart.multipart - DEBUG - Calling on_header_field with data[54:73]
+2025-04-20 03:31:38,261 - python_multipart.multipart - DEBUG - Calling on_header_value with data[75:137]
+2025-04-20 03:31:38,262 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:31:38,262 - python_multipart.multipart - DEBUG - Calling on_header_field with data[139:151]
+2025-04-20 03:31:38,262 - python_multipart.multipart - DEBUG - Calling on_header_value with data[153:218]
+2025-04-20 03:31:38,262 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-04-20 03:31:38,262 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-04-20 03:31:38,262 - python_multipart.multipart - DEBUG - Calling on_part_data with data[222:15747]
+2025-04-20 03:31:38,262 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-04-20 03:31:38,263 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2025-04-20 03:31:38,754 - app.main - DEBUG - Uploaded DataFrame shape: (144, 8)
+2025-04-20 03:31:38,755 - app.main - DEBUG - DataFrame columns: ['Datetime', 'rf-a', 'rf-a-sum', 'wl-ch-a', 'wl-a', 'rf-c', 'rf-c-sum', 'wl-c']
+2025-04-20 03:31:38,764 - app.model.model - INFO - Model loaded successfully
+2025-04-20 03:31:38,766 - app.model.model - DEBUG - Initial DataFrame shape: (144, 8)
+2025-04-20 03:31:38,786 - app.model.model - DEBUG - DataFrame after preprocessing: (144, 12)
+2025-04-20 03:31:38,809 - app.model.model - DEBUG - Final features shape: (144, 34)
+2025-04-20 03:31:38,809 - app.model.model - WARNING - last_datetime is not a datetime object, it's <class 'numpy.int64'>
+2025-04-20 03:31:38,930 - app.model.model - INFO - Applied scaling factor of 36.0. Original: 90.13484954833984, Scaled: 2.5037457942962646
